@@ -1,0 +1,53 @@
+name: Daily Health Check Monitor
+
+on:
+  schedule:
+    # Runs every day at 08:00 AM UTC (09:00 AM WAT)
+    - cron: '0 8 * * *'
+  # Allows you to manually trigger the health check from the Actions tab anytime
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Health Monitor Agent
+        run: node src/runner.js --target=all --notify
+        env:
+          HEADLESS: "true"
+          BROWSER_CHANNEL: "msedge"
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: "gemini-3.6-flash"
+          CICOD_LOGIN_URL: ${{ vars.CICOD_LOGIN_URL || 'https://cicodsaasstaging.com/signin' }}
+          CICOD_TENANT: ${{ vars.CICOD_TENANT || 'cicodecms' }}
+          CICOD_EMAIL: ${{ secrets.CICOD_EMAIL }}
+          CICOD_PASSWORD: ${{ secrets.CICOD_PASSWORD }}
+          GOV_LOGIN_URL: ${{ vars.GOV_LOGIN_URL || 'https://govtest.convergenceondemand.com/login' }}
+          GOV_TENANT: ${{ vars.GOV_TENANT || 'govtest' }}
+          GOV_EMAIL: ${{ secrets.GOV_EMAIL }}
+          GOV_PASSWORD: ${{ secrets.GOV_PASSWORD }}
+          ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_FROM: ${{ vars.ALERT_EMAIL_FROM || 'CICOD Health Monitor <no-reply@parkly.sellytichq.com>' }}
+          ALERT_EMAIL_TO: ${{ secrets.ALERT_EMAIL_TO }}
+          ALERT_ON_STATUS: "HEALTHY,DEGRADED,DOWN"
+
+      - name: Upload Health Check Reports & Screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: health-monitor-reports
+          path: reports/
+          retention-days: 14
