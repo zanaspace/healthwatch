@@ -1,0 +1,239 @@
+{
+  "targets": [
+    {
+      "id": "cicod-staging",
+      "name": "CICOD SaaS Staging (cicodecms)",
+      "baseUrl": "https://cicodecms.cicodsaasstaging.com",
+      "auth": {
+        "loginUrlEnv": "CICOD_LOGIN_URL",
+        "tenantEnv": "CICOD_TENANT",
+        "emailEnv": "CICOD_EMAIL",
+        "passwordEnv": "CICOD_PASSWORD",
+        "sessionFile": "auth/cicod-staging.session.json",
+        "selectors": {
+          "tenant": "#si-tenant, input[name=\"tenantId\"], input[placeholder*=\"company\"]",
+          "email": "#si-email, input[type=\"email\"], input[name=\"merchantEmail\"]",
+          "password": "#si-pass, input[type=\"password\"], input[name=\"merchantPassword\"]",
+          "submit": "button:has-text(\"Sign in\"), button[type=\"submit\"]"
+        },
+        "verifyUrlPath": "/admin/merchant",
+        "authFailurePatterns": ["/signin", "/login"]
+      },
+      "ignoreUrls": ["assets.msn.com", "google-analytics"],
+      "modules": [
+        {
+          "id": "portal-home",
+          "name": "Workstation Portal",
+          "category": "Portal",
+          "url": "https://cicodecms.cicodsaasstaging.com/admin/merchant",
+          "expectedTexts": ["Good morning", "Workstation"],
+          "waitMs": 5000
+        },
+        {
+          "id": "drive-my-documents",
+          "name": "Drive — My Documents",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/my-documents",
+          "expectedTexts": ["My Documents"],
+          "probe": { "type": "clickButton", "selector": "button:has-text(\"NEW\")", "expectDropdown": true },
+          "waitMs": 5000
+        },
+        {
+          "id": "drive-collaborations",
+          "name": "Drive — Collaborations",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/collaboration",
+          "expectedTexts": ["Collaborations"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-departments",
+          "name": "Drive — Departments",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/department-documents",
+          "expectedTexts": ["Departments"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-historic-files",
+          "name": "Drive — Historic Files",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/historic-files",
+          "expectedTexts": ["Historic Files"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-general-documents",
+          "name": "Drive — General Documents",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/general-documents",
+          "expectedTexts": ["General Documents"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-application-documents",
+          "name": "Drive — Application Documents",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/application-documents",
+          "expectedTexts": ["Application Documents"],
+          "minMainTextLength": 60,
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-recent",
+          "name": "Drive — Recent",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/recent",
+          "expectedTexts": ["Recent"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-starred",
+          "name": "Drive — Starred",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/starred",
+          "expectedTexts": ["Starred"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-trash",
+          "name": "Drive — Trash",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/trash",
+          "expectedTexts": ["Trash"],
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-audit-log",
+          "name": "Drive — Audit Log",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/audit-log",
+          "expectedTexts": ["Audit Log", "Search"],
+          "probe": { "type": "selectDropdown", "selector": "button:has-text(\"Select a user\"), [role=\"combobox\"]" },
+          "waitMs": 3500
+        },
+        {
+          "id": "drive-approval-log",
+          "name": "Drive — Approval Log",
+          "category": "Drive",
+          "url": "https://cicodecms.cicodsaasstaging.com/cde/approval-log",
+          "expectedTexts": ["Approval Log"],
+          "waitMs": 3500
+        },
+        {
+          "id": "ecms-workflows-new",
+          "name": "ECMS — Workflow Form Builder",
+          "category": "ECMS",
+          "url": "https://cicodecms.cicodsaasstaging.com/ecms/workflows/new?step=form",
+          "expectedTexts": ["Task title", "Priority"],
+          "waitMs": 5000
+        },
+        {
+          "id": "esign-widget",
+          "name": "E-Sign — Signing Widget (/esign/cde-sign)",
+          "category": "E-Sign",
+          "url": "https://cicodecms.cicodsaasstaging.com/esign/cde-sign",
+          "minBodyLength": 20,
+          "waitMs": 3500
+        }
+      ]
+    },
+    {
+      "id": "1gov-staging",
+      "name": "1Gov Cloud Staging (govtest)",
+      "baseUrl": "https://govtest.convergenceondemand.com",
+      "auth": {
+        "loginUrlEnv": "GOV_LOGIN_URL",
+        "tenantEnv": "GOV_TENANT",
+        "emailEnv": "GOV_EMAIL",
+        "passwordEnv": "GOV_PASSWORD",
+        "sessionFile": "auth/1gov-staging.session.json",
+        "selectors": {
+          "tenant": "#mda-input, input[placeholder*=\"MDA\"], input[name=\"tenantId\"], input[placeholder*=\"Organization\"], #si-tenant",
+          "email": "#email-input, input[name=\"email\"], input[type=\"email\"], #si-email",
+          "password": "#password-input, input[name=\"password\"], input[type=\"password\"], #si-pass",
+          "submit": "#sign-in-btn, button[type=\"submit\"], button:has-text(\"Login\"), button:has-text(\"Sign in\")"
+        },
+        "verifyUrlPath": "/admin/tenant",
+        "authFailurePatterns": ["/login", "/signin"]
+      },
+      "ignoreUrls": ["assets.msn.com", "google-analytics"],
+      "modules": [
+        {
+          "id": "1gov-portal",
+          "name": "1Gov Tenant Portal",
+          "category": "Portal",
+          "url": "https://govtest.convergenceondemand.com/admin/tenant",
+          "expectedTexts": ["GOVTEST"],
+          "waitMs": 5000
+        },
+        {
+          "id": "1gov-drive-mydocs",
+          "name": "GovDrive — My Documents",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/my-documents",
+          "expectedTexts": ["My Documents", "e-sign"],
+          "waitMs": 5000
+        },
+        {
+          "id": "1gov-drive-collab",
+          "name": "GovDrive — Collaborations",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/collaboration",
+          "expectedTexts": ["Collaborations"],
+          "waitMs": 3500
+        },
+        {
+          "id": "1gov-drive-depts",
+          "name": "GovDrive — Departments",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/department-documents",
+          "expectedTexts": ["Departments"],
+          "waitMs": 3500
+        },
+        {
+          "id": "1gov-drive-appdocs",
+          "name": "GovDrive — Application Documents",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/application-documents",
+          "expectedTexts": ["Application Documents", "ECMS", "WFM"],
+          "waitMs": 3500
+        },
+        {
+          "id": "1gov-drive-audit",
+          "name": "GovDrive — Audit Log",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/audit-log",
+          "expectedTexts": ["Audit Log"],
+          "waitMs": 3500
+        },
+        {
+          "id": "1gov-drive-approval",
+          "name": "GovDrive — Approval Log",
+          "category": "Drive",
+          "url": "https://govtest.convergenceondemand.com/govdrive/approval-log",
+          "expectedTexts": ["Approval Log"],
+          "waitMs": 3500
+        },
+        {
+          "id": "1gov-ecms-workflows",
+          "name": "Gov ECMS — Workflow Form Designer",
+          "category": "ECMS",
+          "url": "https://govtest.convergenceondemand.com/ecms/workflows/new?step=form",
+          "expectedTexts": ["Task title", "Priority", "Workflows"],
+          "waitMs": 5000
+        },
+
+        {
+  "id": "my-new-feature",
+  "name": "Feature Name",
+  "category": "Optional Category",
+  "url": "https://cicodecms.cicodsaasstaging.com/your-new-path",
+  "expectedTexts": ["Dashboard", "Overview"],
+  "waitMs": 4000
+}
+      ]
+    }
+  ]
+}
+

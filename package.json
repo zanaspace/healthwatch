@@ -1,0 +1,28 @@
+{
+  "name": "cicod-health-monitor",
+  "version": "1.0.0",
+  "description": "Autonomous AI QA & Module Health Monitoring Agent for CICOD and 1Gov Platforms",
+  "main": "src/runner.js",
+  "scripts": {
+    "monitor": "node src/runner.js --target=all",
+    "monitor:cicod": "node src/runner.js --target=cicod-staging",
+    "monitor:1gov": "node src/runner.js --target=1gov-staging",
+    "monitor:fast": "node src/runner.js --target=all --no-ai",
+    "notify:test": "node src/runner.js --target=cicod-staging --notify"
+  },
+  "keywords": [
+    "qa-agent",
+    "health-monitor",
+    "playwright",
+    "gemini",
+    "cicod",
+    "1gov"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^1.0.0",
+    "dotenv": "^16.4.7",
+    "playwright-core": "^1.50.0"
+  }
+}
+
